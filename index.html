@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentines Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-background {
+      background: rgb(255, 208, 229);
+      background: linear-gradient(180deg, rgba(255, 208, 229, 1) 0%, rgba(255, 232, 242, 1) 36%, rgba(255, 255, 255, 1) 100%);
+    }
+
+    .bounce2 {
+      animation: bounce2 2s ease infinite;
+    }
+
+    @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</head>
+<body class="gradient-background">
+  <script>
+  const correctPassword = "RIYA"; // 🔑 yahan password change kar sakti ho
+
+  const userPassword = prompt("Only for you ❤️ Enter the secret word");
+
+  if (userPassword !== correctPassword) {
+    document.body.innerHTML =
+      "<h2 style='text-align:center;margin-top:20%;font-size:24px;'>Access denied 💔</h2>";
+  }
+</script>
+
+  <!-- FIRST PAGE : PHOTOS + NOTE -->
+<div class="flex items-center justify-center h-screen" id="intro">
+  <div class="flex flex-row gap-8 p-6 max-w-4xl items-center">
+
+    <!-- LEFT SIDE : PHOTOS -->
+    <div class="flex flex-col gap-4">
+      <img src="images/him.jpeg" class="rounded-md h-[150px]" />
+      <img src="images/him2.jpeg" class="rounded-md h-[150px]" />
+    </div>
+
+    <!-- RIGHT SIDE : NOTE -->
+    <div class="max-w-md">
+      <h2 class="text-3xl font-bold text-[#bd1e59] mb-4">
+        Just read this once.
+      </h2>
+
+      <p class="text-lg text-gray-700 mb-6">
+        <!-- ✍️ YOU WILL WRITE YOUR NOTE HERE -->
+        (Hey handsome 😘
+
+I’m really sorry baby…
+You are coming for a very short span of time and I can’t meet you.
+
+Cold aur fever ne milke meri health bigaad di hai 😞
+I’m frustrated, weak, and missing you badly.
+
+I miss you sooo much and I want to stay with you forever 💞
+Tum sirf mere ho, aur main sirf tumhari hoon 💕
+
+Take care of yourself till then…
+warna aa kar complain karungi 😌
+
+Missing you badly, Mr. Hot  
+
+Yours,  
+your girl ❤️ )
+      </p>
+
+      <button
+        onclick="goToValentine()"
+        class="bg-[#bd1e59] text-white px-6 py-3 rounded-md text-lg">
+        Continue
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<!-- SECOND PAGE : VALENTINE QUESTION -->
+<div class="flex items-center justify-center h-screen hidden" id="valentine">
+  <div class="flex flex-col items-center p-4">
+
+    <img id="imageDisplay" src="./images/image1.gif"
+      class="rounded-md h-[300px]" />
+
+    <h2 id="valentineQuestion"
+      class="text-4xl font-bold italic text-[#bd1e59] my-4">
+      Will you be my Valentine?
+    </h2>
+
+    <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+
+      <button id="yesButton"
+        class="bounce2 bg-green-500 text-white px-6 py-3 rounded-md text-xl">
+        Yes
+      </button>
+
+      <button id="noButton"
+        class="bg-red-500 text-white px-6 py-3 rounded-md text-xl">
+        No
+      </button>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <script type="module">
+  import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
+  let yesButton, noButton, imageDisplay, valentineQuestion, responseButtons;
+
+  let noClickCount = 0;
+  let buttonHeight = 48;
+  let buttonWidth = 80;
+  let fontSize = 20;
+
+  const imagePaths = [
+    "./images/image1.gif",
+    "./images/image2.gif",
+    "./images/image3.gif",
+    "./images/image4.gif",
+    "./images/image5.gif",
+    "./images/image6.gif",
+    "./images/image7.gif"
+  ];
+
+  // 👉 CONTINUE BUTTON FUNCTION
+  function goToValentine() {
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("valentine").classList.remove("hidden");
+
+    // elements ab exist karte hain
+    yesButton = document.getElementById('yesButton');
+    noButton = document.getElementById('noButton');
+    imageDisplay = document.getElementById('imageDisplay');
+    valentineQuestion = document.getElementById('valentineQuestion');
+    responseButtons = document.getElementById('responseButtons');
+
+    noButton.addEventListener('click', handleNo);
+    yesButton.addEventListener('click', handleYes);
+  }
+
+  // 👉 NO BUTTON LOGIC
+  function handleNo() {
+    if (noClickCount < 6) {
+      noClickCount++;
+      imageDisplay.src = imagePaths[noClickCount];
+      buttonHeight += 35;
+      buttonWidth += 35;
+      fontSize += 25;
+      yesButton.style.height = `${buttonHeight}px`;
+      yesButton.style.width = `${buttonWidth}px`;
+      yesButton.style.fontSize = `${fontSize}px`;
+
+      const texts = [
+        "No",
+        "Are you sure?",
+        "Pookie please",
+        "Don't do this to me :(",
+        "You're breaking my heart",
+        "I'm gonna cry..."
+      ];
+      noButton.textContent = texts[noClickCount];
+    }
+  }
+
+  // 👉 YES BUTTON LOGIC
+  function handleYes() {
+    imageDisplay.src = './images/image7.gif';
+   valentineQuestion.textContent = "Thank you for choosing me ❤️";
+
+    responseButtons.style.display = 'none';
+    confetti();
+  }
+
+  // ⚠️ IMPORTANT: function ko global banana
+  window.goToValentine = goToValentine;
+
+
+  </script>  
+</body>
+</html>
